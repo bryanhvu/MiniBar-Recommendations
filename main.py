@@ -17,14 +17,6 @@ top_cocktail_names += [drink.get_text() for drink in drink2]
 # remove duplicate entries
 top_cocktail_names = list(set(top_cocktail_names))
 
-
-# TODO construct drink dictionary (data frame friendly)
-# test for single query
-# update to get nested list containing ingredients for each top cocktail item
-# test
-# cocktail = "margarita"
-# api_url = f'https://www.thecocktaildb.com/api/json/v1/1/search.php?s={cocktail}'
-
 count = 0
 ingredients = []
 for cocktail in top_cocktail_names:
@@ -43,4 +35,8 @@ top_cocktails = {
     "ingredients": ingredients,
 }
 
-# TODO compile general ingredient costs?
+# TODO write results into a csv
+# TODO Make flow control for whether csv is provided or manual webscraping and api calls must be done
+# so we don't have to keep running the script over and over
+# or I guess we can have a second script that does the google trend stuff
+# TODO add google trend api calls
