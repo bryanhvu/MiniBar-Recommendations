@@ -21,17 +21,26 @@ top_cocktail_names = list(set(top_cocktail_names))
 # TODO construct drink dictionary (data frame friendly)
 # test for single query
 # update to get nested list containing ingredients for each top cocktail item
-cocktail = "margarita"
-api_url = f'https://www.thecocktaildb.com/api/json/v1/1/search.php?s={cocktail}'
-api_response = requests.get(api_url)
-first_drink_result = api_response.json()['drinks'][0]
-ingredients = [val for key, val in first_drink_result.items() if key.startswith('strIngredient') and val is not None]
+# test
+# cocktail = "margarita"
+# api_url = f'https://www.thecocktaildb.com/api/json/v1/1/search.php?s={cocktail}'
+
+count = 0
+ingredients = []
+for cocktail in top_cocktail_names:
+    api_url = f'https://www.thecocktaildb.com/api/json/v1/1/search.php?s={cocktail}'
+    api_response = requests.get(api_url)
+    result = api_response.json()['drinks']
+    if result is not None:
+        ingredients.append([val for key, val in result[0].items() if key.startswith('strIngredient') and val is not None])
+    else:
+        ingredients.append(None)
+    count += 1
+    print(f'{count/len(top_cocktail_names)*100:.2f}% complete')
 
 top_cocktails = {
     "names": top_cocktail_names,
     "ingredients": ingredients,
 }
-
-print(api_response)
 
 # TODO compile general ingredient costs?
